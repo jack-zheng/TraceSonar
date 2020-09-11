@@ -35,6 +35,7 @@ public class MethodInsnCollector {
       className = name;
       classOutline = new ClassMap.ClassOutline(name, superName, interfaces);
       ClassMap.INSTANCE.addClassOutline(className, classOutline);
+      System.out.println("Class: " + className + " linked with outline: " + classOutline);
     }
 
     @Override
@@ -44,11 +45,13 @@ public class MethodInsnCollector {
       if ((access & Opcodes.ACC_PRIVATE) == 0 // Non-private
           && !isIgnore(className, name, desc)) {
         classOutline.addMethod(caller);
+        System.out.println("Method: [" + caller + "] add to class outline obj.");
       }
 
       return new MethodVisitor(ASM5) {
         @Override
         public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
+          System.out.println("MethodInsn: opcode:" + opcode + ", owner:" + owner + ", name:" + name + ", desc:" + desc + "\n");
 //          if (Strings.substringBefore(owner, "$").equals(topClassName)) { // Ignore self class calls
 //            return;
 //          }
@@ -83,6 +86,12 @@ public class MethodInsnCollector {
           return null;
         }
       };
+    }
+
+    @Override
+    public void visitEnd() {
+      System.out.println("\n");
+      super.visitEnd();
     }
   };
 

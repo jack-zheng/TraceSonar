@@ -117,5 +117,16 @@ class ClassMap {
     List<Method> getMethods() {
       return methods;
     }
+
+    @Override
+    public String toString() {
+      return "ClassOutline{" +
+              "name='" + name + '\'' +
+              ", superName='" + superName + '\'' +
+              ", intfs=" + intfs +
+              ", methods=" + methods +
+              ", runtimeMethodsFilled=" + runtimeMethodsFilled +
+              '}';
+    }
   }
 }

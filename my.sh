@@ -1,0 +1,1 @@
+mvn assembly:assembly && java -Xmx2048m -jar target/tracesonar-0.1-SNAPSHOT.jar -f /Users/i306454/.gradle/caches/modules-2/files-2.1/com.successfactors/au-legacydatamodel-service/trunk.1.0.202009010229/8c1f8a6015ca6d37d6d871954267ace5cbdb0bac/au-legacydatamodel-service-trunk.1.0.202009010229.jar -q "com.successfactors.legacydatamodel.dao.DataModelDao#getDataModel"

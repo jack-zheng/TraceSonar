@@ -1,0 +1,34 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Traceback</title>
+  <style>
+    .queried{
+      margin-top: 0.5em;
+      background: skyblue;
+    }
+    .caller{
+      margin-top: 0.5em;
+    }
+    .endpoint{
+      border: 1px solid lightgreen;
+      padding: 1px;
+    }
+    .potential{
+      background: lightgray;
+    }
+    .error{
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<h3>Query{owner='sorra/tracesonar/sample/modifier/Private', methodName='*', params='*'}</h3>
+<div class="queried"><- sorra.tracesonar.sample.modifier.Private #&lt;init&gt; ()V</div>
+<div class="caller endpoint" style="margin-left:2em"><- sorra.tracesonar.sample.modifier.Entrypoint #main ([String;)V</div>
+<div class="queried"><- sorra.tracesonar.sample.modifier.Private #publicMethod ()V</div>
+<div class="queried"><- sorra.tracesonar.sample.modifier.Private #protectedMethod ()V</div>
+<div class="caller endpoint" style="margin-left:2em"><- sorra.tracesonar.sample.modifier.Private #privateMethod ()V</div>
+
+</body>
+</html>
