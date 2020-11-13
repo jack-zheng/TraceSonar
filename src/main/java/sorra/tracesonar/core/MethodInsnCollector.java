@@ -12,6 +12,11 @@ import sorra.tracesonar.util.Pair;
 
 import static org.objectweb.asm.Opcodes.ASM5;
 
+/**
+ * This class defins the parse rule when access java class file.
+ * when access class, it will fill {@link ClassMap} which store relationship of class and method.
+ * when access method, it will fill {@link GraphStore} which store relationship of method and method caller.
+ */
 public class MethodInsnCollector {
 
   private final QualifierFilter qualifierFilter;

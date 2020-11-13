@@ -8,7 +8,7 @@ import sorra.tracesonar.model.Method;
 /**
  * Data store of ClassName->ClassOutline pairs
  */
-class ClassMap {
+public class ClassMap {
   static final ClassMap INSTANCE = new ClassMap();
 
   private Map<String, ClassOutline> classOutlines = Factory.infoMap();
