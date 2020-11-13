@@ -28,6 +28,10 @@ public class TreeNode {
     }
   }
 
+  public List<TreeNode> getCallers() {
+    return callers;
+  }
+
   boolean findCycle(Method neo) {
     TreeNode cur = this;
     do {

@@ -14,6 +14,18 @@ public class Method {
     this.desc = desc;
   }
 
+  public String getOwner() {
+    return owner;
+  }
+
+  public String getMethodName() {
+    return methodName;
+  }
+
+  public String getDesc() {
+    return desc;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -32,15 +44,20 @@ public class Method {
     return result;
   }
 
+//  @Override
+//  public String toString() {
+//    String name = methodName;
+//    if (methodName.contains("<") || methodName.contains(">")) {
+//      name = methodName.replace("<", "&lt;").replace(">", "&gt;");
+//    }
+//
+//    String desc = this.desc.replace("Ljava/lang/", "");
+//
+//    return String.format("<- %s #%s %s", owner.replace('/', '.'), name, desc);
+//  }
+
   @Override
   public String toString() {
-    String name = methodName;
-    if (methodName.contains("<") || methodName.contains(">")) {
-      name = methodName.replace("<", "&lt;").replace(">", "&gt;");
-    }
-
-    String desc = this.desc.replace("Ljava/lang/", "");
-
-    return String.format("<- %s #%s %s", owner.replace('/', '.'), name, desc);
+    return String.format("%s #%s %s", owner.replace('/', '.'), methodName, desc);
   }
 }

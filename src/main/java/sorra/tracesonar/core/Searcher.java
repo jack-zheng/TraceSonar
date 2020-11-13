@@ -122,15 +122,6 @@ class Searcher {
   }
 
   private void searchCallers(TreeNode cur, boolean asSuper) {
-//    if (cur.parent != null) {
-//      if (cur.parent.findCycle(cur.self)) {
-////        cur.parent.addCycleEnd(cur.self, asSuper);
-//        return;
-//      } else {
-////        cur.parent.callers.add(cur);
-//      }
-//    }
-
     Set<Method> callers = GraphStore.INSTANCE.getCallerCollector(cur.self).getCallers();
     for (Method caller : callers) {
       if (cur.findCycle(caller)) {

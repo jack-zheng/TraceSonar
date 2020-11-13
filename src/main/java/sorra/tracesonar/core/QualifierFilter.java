@@ -30,6 +30,12 @@ public class QualifierFilter {
     return included && excludedQualifiers.stream().noneMatch(qualifierMatcher);
   }
 
+  /**
+   * Generate predicate type lambda expression, this predicate can test if give string start with classQname
+   *
+   * @param classQname
+   * @return
+   */
   public static Predicate<String> classQnameMatcher(String classQname) {
     return q ->
         classQname.equals(q) || classQname.startsWith(q + '/') || classQname.startsWith(q + '$');

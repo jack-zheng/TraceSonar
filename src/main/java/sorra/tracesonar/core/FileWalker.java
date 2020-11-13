@@ -23,6 +23,14 @@ import sorra.tracesonar.util.FileUtil;
  */
 public class FileWalker {
 
+  /**
+   * Go throw all files under given root, fill class info to ClassMap and GraphStore.
+   *
+   * @param roots
+   *    folder path will be processed
+   * @param qualifierFilter
+   *    filter rule
+   */
   public static void walkAll(Collection<String> roots, QualifierFilter qualifierFilter) {
     BiConsumer<Path, InputStream> classConsumer = (path, inputStream) -> {
       if (!qualifierFilter.filterClassFile(path.toString())) {
