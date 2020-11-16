@@ -6,17 +6,17 @@ import java.util.List;
 import sorra.tracesonar.model.Method;
 
 public class TreeNode {
-  final Method self;
-  final boolean isCallingSuper; // self is calling the super method of parent
-  final TreeNode parent;
-  final int depth;
+  private Method method;
+  private boolean isCallingSuper; // self is calling the super method of parent
+  private TreeNode parent;
+  private int depth;
 
-  final List<TreeNode> callers = new ArrayList<>();
+  public List<TreeNode> callers = new ArrayList<>();
 
   private String error;
 
-  TreeNode(Method self, boolean isCallingSuper, TreeNode parent) {
-    this.self = self;
+  public TreeNode(Method method, boolean isCallingSuper, TreeNode parent) {
+    this.method = method;
     this.isCallingSuper = isCallingSuper;
     this.parent = parent;
 
@@ -28,14 +28,42 @@ public class TreeNode {
     }
   }
 
+  public Method getMethod() {
+    return method;
+  }
+
+  public void setMethod(Method method) {
+    this.method = method;
+  }
+
+  public boolean isCallingSuper() {
+    return isCallingSuper;
+  }
+
+  public void setCallingSuper(boolean callingSuper) {
+    isCallingSuper = callingSuper;
+  }
+
   public List<TreeNode> getCallers() {
     return callers;
+  }
+
+  public void setCallers(List<TreeNode> callers) {
+    this.callers = callers;
+  }
+
+  public int getDepth() {
+    return depth;
+  }
+
+  public void setDepth(int depth) {
+    this.depth = depth;
   }
 
   boolean findCycle(Method neo) {
     TreeNode cur = this;
     do {
-      if (cur.self.equals(neo) || cur.callers.stream().anyMatch(x -> x.self.equals(neo))) {
+      if (cur.method.equals(neo) || cur.callers.stream().anyMatch(x -> x.method.equals(neo))) {
         return true;
       }
       cur = cur.parent;
@@ -71,7 +99,7 @@ public class TreeNode {
       for (int i = 0; i < cur.depth; i++) {
         sb.append("  ");
       }
-      sb.append(cur.self).append('\n');
+      sb.append(cur.method).append('\n');
       cur = cur.parent;
     } while (cur != null);
 

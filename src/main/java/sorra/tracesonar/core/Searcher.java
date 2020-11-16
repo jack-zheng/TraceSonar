@@ -10,24 +10,23 @@ import sorra.tracesonar.model.Method;
 import sorra.tracesonar.model.Query;
 import sorra.tracesonar.util.BytecodeMethodParamsResolver;
 import sorra.tracesonar.util.QueryMethodParamsResolver;
-import sorra.tracesonar.util.StringUtil;
 
 /**
  * Trace-back Searcher
  */
-class Searcher {
+public class Searcher {
   private final boolean includePotentialCalls;
   private final boolean onlySearchDirectCalls;
   private final Collection<String> ends;
   private boolean stopped;
 
-  Searcher(boolean includePotentialCalls, boolean onlySearchDirectCalls, Collection<String> ends) {
+  public Searcher(boolean includePotentialCalls, boolean onlySearchDirectCalls, Collection<String> ends) {
     this.includePotentialCalls = includePotentialCalls;
     this.onlySearchDirectCalls = onlySearchDirectCalls;
     this.ends = ends;
   }
 
-  Stream<TreeNode> search(Query query) {
+  public Stream<TreeNode> search(Query query) {
     List<Method> methods;
     ClassMap classMap = ClassMap.INSTANCE;
     if (query.owner.equals("*")) {
@@ -89,7 +88,7 @@ class Searcher {
 
   private TreeNode searchTree(Method self, TreeNode parent, boolean asSuper) {
     TreeNode cur = new TreeNode(self, asSuper, parent);
-    if (cur.depth == 100) {
+    if (cur.getDepth() == 100) {
       cur.setError("Exceeds max depth!");
       stopped = true;
       return cur;
@@ -105,7 +104,7 @@ class Searcher {
       return cur;
     }
 
-    if (onlySearchDirectCalls && cur.depth == 1) {
+    if (onlySearchDirectCalls && cur.getDepth() == 1) {
       return cur;
     }
 
@@ -122,7 +121,7 @@ class Searcher {
   }
 
   private void searchCallers(TreeNode cur, boolean asSuper) {
-    Set<Method> callers = GraphStore.INSTANCE.getCallerCollector(cur.self).getCallers();
+    Set<Method> callers = GraphStore.INSTANCE.getCallerCollector(cur.getMethod()).getCallers();
     for (Method caller : callers) {
       if (cur.findCycle(caller)) {
         cur.addCycleEnd(caller, asSuper);

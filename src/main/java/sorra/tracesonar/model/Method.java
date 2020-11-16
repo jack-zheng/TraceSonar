@@ -4,9 +4,9 @@ package sorra.tracesonar.model;
  * Represents a method identifier in class files
  */
 public class Method {
-  public final String owner;
-  public final String methodName;
-  public final String desc;
+  public String owner;
+  public String methodName;
+  public String desc;
 
   public Method(String owner, String methodName, String desc) {
     this.owner = owner;
@@ -18,12 +18,24 @@ public class Method {
     return owner;
   }
 
+  public void setOwner(String owner) {
+    this.owner = owner;
+  }
+
   public String getMethodName() {
     return methodName;
   }
 
+  public void setMethodName(String methodName) {
+    this.methodName = methodName;
+  }
+
   public String getDesc() {
     return desc;
+  }
+
+  public void setDesc(String desc) {
+    this.desc = desc;
   }
 
   @Override

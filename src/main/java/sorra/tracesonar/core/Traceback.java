@@ -24,13 +24,13 @@ public class Traceback {
 
     if (isHtml) {
       printer = node -> {
-        if (node.depth == 0) {
+        if (node.getDepth() == 0) {
           output.append(String.format(
-              "<div class=\"queried\">%s</div>\n", node.self));
+              "<div class=\"queried\">%s</div>\n", node.getMethod()));
         } else {
           String cssClass = "caller";
           if (node.callers.isEmpty()) cssClass += " endpoint";
-          if (node.isCallingSuper) cssClass += " potential";
+          if (node.isCallingSuper()) cssClass += " potential";
 
           String errorMessage;
           if (node.hasError()) {
@@ -41,14 +41,14 @@ public class Traceback {
 
           output.append(String.format(
               "<div class=\"%s\" style=\"margin-left:%dem\">%s%s</div>\n",
-              cssClass, node.depth * 2, node.self, errorMessage));
+              cssClass, node.getDepth() * 2, node.getMethod(), errorMessage));
         }
       };
     } else {
       printer = node -> {
-        char[] indents = new char[node.depth];
+        char[] indents = new char[node.getDepth()];
         Arrays.fill(indents, '\t');
-        output.append(String.valueOf(indents)).append(node.self);
+        output.append(String.valueOf(indents)).append(node.getMethod());
         if (node.hasError()) {
           output.append(" {").append(node.getError()).append('}');
         }
