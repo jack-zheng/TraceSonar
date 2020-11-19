@@ -19,6 +19,7 @@ import static org.objectweb.asm.Opcodes.ASM5;
  */
 public class MethodInsnCollector {
 
+  // qualifier to filter owner in method level.
   private final QualifierFilter qualifierFilter;
 
   private String className;

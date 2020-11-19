@@ -4,8 +4,10 @@ package sorra.tracesonar.model;
  * Represents a method identifier in class files
  */
 public class Method {
+  // class name of method's owner, sample as: sorra.tracesonar.model.Method
   public String owner;
   public String methodName;
+  // String format of Type in ASM lib, sample as: (Ljava/lang/String;)V
   public String desc;
 
   public Method(String owner, String methodName, String desc) {
@@ -52,24 +54,15 @@ public class Method {
   public int hashCode() {
     int result = owner.hashCode();
     result = 31 * result + methodName.hashCode();
-    // result = 31 * result + desc.hashCode();
     return result;
   }
 
-//  @Override
-//  public String toString() {
-//    String name = methodName;
-//    if (methodName.contains("<") || methodName.contains(">")) {
-//      name = methodName.replace("<", "&lt;").replace(">", "&gt;");
-//    }
-//
-//    String desc = this.desc.replace("Ljava/lang/", "");
-//
-//    return String.format("<- %s #%s %s", owner.replace('/', '.'), name, desc);
-//  }
-
   @Override
   public String toString() {
-    return String.format("%s #%s %s", owner.replace('/', '.'), methodName, desc);
+    return "Method{" +
+            "owner='" + owner + '\'' +
+            ", methodName='" + methodName + '\'' +
+            ", desc='" + desc + '\'' +
+            '}';
   }
 }
