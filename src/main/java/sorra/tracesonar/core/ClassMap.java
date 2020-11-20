@@ -13,6 +13,14 @@ public class ClassMap {
 
   private Map<String, ClassOutline> classOutlines = Factory.infoMap();
 
+  public Map<String, ClassOutline> getClassOutlines() {
+    return classOutlines;
+  }
+
+  public void cleanMap() {
+    classOutlines.clear();
+  }
+
   void addClassOutline(String className, ClassOutline classOutline) {
     classOutlines.put(className, classOutline);
   }
@@ -110,12 +118,32 @@ public class ClassMap {
       this.intfs = Collections.unmodifiableList(Arrays.asList(intfs));
     }
 
-    void addMethod(Method method) {
+    public void addMethod(Method method) {
       methods.add(method);
     }
 
-    List<Method> getMethods() {
+    public List<Method> getMethods() {
       return methods;
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public String getSuperName() {
+      return superName;
+    }
+
+    public List<String> getIntfs() {
+      return intfs;
+    }
+
+    public boolean isRuntimeMethodsFilled() {
+      return runtimeMethodsFilled;
+    }
+
+    public void setRuntimeMethodsFilled(boolean runtimeMethodsFilled) {
+      this.runtimeMethodsFilled = runtimeMethodsFilled;
     }
   }
 }
