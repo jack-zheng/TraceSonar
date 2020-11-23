@@ -2,8 +2,10 @@ package sorra.tracesonar.core;
 
 import org.junit.Assert;
 import org.junit.Test;
+import sorra.tracesonar.model.Method;
 
 import java.util.Collections;
+import java.util.Set;
 
 public class FileWalkerTest {
 
@@ -21,5 +23,10 @@ public class FileWalkerTest {
 
         outline = ClassMap.INSTANCE.getClassOutline("sorra/tracesonar/core/data/ClassB");
         Assert.assertEquals(outline.getMethods().size(), 2);
+
+        CallerCollector collector = GraphStore.INSTANCE.getCallerCollector(new Method("sorra/tracesonar/core/data/ClassB", "methodB", "()V"));
+        Set<Method> callers = collector.getCallers();
+        Assert.assertEquals(1, callers.size());
+        Assert.assertTrue(callers.contains(new Method("sorra/tracesonar/core/data/ClassA", "methodA", "()V")));
     }
 }
