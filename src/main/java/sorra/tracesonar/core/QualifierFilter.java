@@ -2,19 +2,30 @@ package sorra.tracesonar.core;
 
 import java.util.Collection;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Filters classes by specified qualifiers and a matcher predicate.
  * Effective like:
  * filtered = (all & included) - excluded
+ *
+ * QualifierFilter will accept path that split with dot mark(com.abc.def) and transfer them into slash format(com/abc/def) in constructor.
  */
 public class QualifierFilter {
-  private Collection<String> includedQualifiers;
-  private Collection<String> excludedQualifiers;
+  private final Collection<String> includedQualifiers;
+  private final Collection<String> excludedQualifiers;
 
   public QualifierFilter(Collection<String> includedQualifiers, Collection<String> excludedQualifiers) {
-    this.includedQualifiers = includedQualifiers;
-    this.excludedQualifiers = excludedQualifiers;
+    this.includedQualifiers = includedQualifiers.stream().map(p -> p.replace(".", "/")).collect(Collectors.toList());
+    this.excludedQualifiers = excludedQualifiers.stream().map(p -> p.replace(".", "/")).collect(Collectors.toList());
+  }
+
+  public Collection<String> getIncludedQualifiers() {
+    return includedQualifiers;
+  }
+
+  public Collection<String> getExcludedQualifiers() {
+    return excludedQualifiers;
   }
 
   public boolean filterClass(String classQname) {
