@@ -1,5 +1,7 @@
 package sorra.tracesonar.model;
 
+import org.objectweb.asm.Type;
+
 /**
  * Represents a method identifier in class files
  */
@@ -64,5 +66,42 @@ public class Method {
             ", methodName='" + methodName + '\'' +
             ", desc='" + desc + '\'' +
             '}';
+  }
+
+  /**
+   * Transfer method string from Type format to java format.
+   * expected format: void className.methodName(String, int, ...)
+   *
+   * @return
+   */
+  public String formatString() {
+    String returnStr = removePathFromObjectType(Type.getType(desc).getReturnType().getClassName());
+    Type[] paramsTypes = Type.getType(desc).getArgumentTypes();
+    StringBuilder paramsStr = new StringBuilder();
+    if (paramsTypes.length != 0) {
+      for (Type paramsType : paramsTypes) {
+        String cName = paramsType.getClassName();
+        paramsStr.append(removePathFromObjectType(cName));
+      }
+    }
+    String className = removePathFromObjectType(owner);
+
+    return String.format("%s %s.%s(%s)", returnStr, className, methodName, paramsStr);
+  }
+
+  /**
+   * Remove prefix path from class.
+   * before: Lcom/lang/Object or com.lang.Object
+   * after: Object
+   */
+  private String removePathFromObjectType(String className) {
+    if (className.contains("/")) {
+      return className.substring(className.lastIndexOf("/") + 1);
+    }
+
+    if (className.contains(".")) {
+      return className.substring(className.lastIndexOf(".") + 1);
+    }
+    return className;
   }
 }
